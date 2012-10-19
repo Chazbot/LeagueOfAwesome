@@ -17,8 +17,8 @@ public class SimpleDataSource
 {
     private static String url = 
             "";
-    private static String username = "";
-    private static String password = "";
+    private static String username = "IBirdUsers";
+    private static String password = "guest";
     
     /**
       Gets a connection to the database.
