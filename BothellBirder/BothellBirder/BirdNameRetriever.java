@@ -124,7 +124,7 @@ public class BirdNameRetriever
 	
 	public ArrayList<String> getCommonNames(int id) throws SQLException
 	{
-		ArrayList<String> common = newArrayList<String>();
+		ArrayList<String> common = new ArrayList<String>();
 		Connection conn = SimpleDataSource.getconnection();
         Statement stat = null;
         stat = conn.createStatement();
