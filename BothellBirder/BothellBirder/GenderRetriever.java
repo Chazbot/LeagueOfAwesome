@@ -46,7 +46,7 @@ public class GenderRetriever
      return gender;
 	}
 	
-	public int getNameId(int id, String bName)
+	public int getNameId(int id, String bName) throws SQLException
 	{
 		Connection conn = SimpleDataSource.getconnection();
         Statement stat = null;
