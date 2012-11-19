@@ -58,5 +58,5 @@ public class GenderRetriever
         rs.next();
         return rs.getInt("uniqueBirdName");
 	}
-	}
 }
+
