@@ -132,7 +132,12 @@ public class BirdNameRetriever
                 + " BirdDatabase.dbo.UniqueBirdID where id = '" + id + "'";  //get database table
         ResultSet rs = null;
         rs = stat.executeQuery(query);
-        rs.next();
+		  int i = 0;
+		  while ( rs.next() ) {
+		  	i++;
+		  }
+		  rs = stat.executeQuery(query);
+		  rs.next();
         for(int j= 0; j < i; j++)//populate arraylist
         {    
         	common.add(rs.getString("name"));
