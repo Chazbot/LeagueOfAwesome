@@ -392,7 +392,7 @@ public class GUI extends JFrame
 	private Map<String, ImageIcon> updateJList(ArrayList<BirdName> listOfBirdNameObjects)
 	{
 		 Map<String, ImageIcon> icons = new TreeMap<String, ImageIcon>();
-		 images = null;
+		 images = new ArrayList<ImageIcon>();
 		 mySet = new TreeMap<Integer, String>();
 	        ImageIcon test = new ImageIcon("0a0.jpg");
 	        int index = 0;
