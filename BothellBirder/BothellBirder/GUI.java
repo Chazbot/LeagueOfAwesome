@@ -126,8 +126,8 @@ public class GUI extends JFrame
 				// TODO Auto-generated catch block
 				e2.printStackTrace();
 			}
-			try 
-		    {
+			//try 
+		    //{
 			
 				int[] IDS = new int[listOfSelectableFeatures.size()/2];
 				int counter = 0;
@@ -137,23 +137,23 @@ public class GUI extends JFrame
 					IDS[counter] = featureID;
 					counter++;
 				}
-		    	 updater = birdNamer.updateData(IDs, IDS);
-			}
-			catch (SQLException e1) {
+		    	 //updater = birdNamer.updateData(IDs, IDS);
+			//}
+			//catch (SQLException e1) {
 					// TODO Auto-generated catch block
-					e1.printStackTrace();
-				}
-			Integer[] birdID = new Integer[updater.size()];
-			int k = 0;
-	        for(BirdName IDa : updater)
-	        {
-	        	birdID[k] = (Integer)IDa.getBirdId();
-	        	k++;
-	        }
-	        updateList(updater);
+				//	e1.printStackTrace();
+				//}
+			//Integer[] birdID = new Integer[updater.size()];
+			//int k = 0;
+	        //for(BirdName IDa : updater)
+	        //{
+	        	//birdID[k] = (Integer)IDa.getBirdId();
+	        	//k++;
+	        //}
+	        //updateList(updater);
 	        featuresJlistJLabel.setText(featureName[0]);
-	        listPanel.revalidate();
-	        listJList.revalidate();
+	        //listPanel.revalidate();
+	        //listJList.revalidate();
 			int i = 0;
 			for(String fam: listOfSelectableFeatures)
 			{
@@ -167,7 +167,7 @@ public class GUI extends JFrame
 	        selectableFeaturesJList = new JList<String>(listOfSelectableFeatures.toArray(as));
 	        selectableFeaturesJList.setModel(model);
 	        jScrollPanes.setViewportView(selectableFeaturesJList);
-			listener = new Next(featureName, 1, selectableFeaturesJList, featureToSelectableFeatureMap);
+			listener = new Next(featureName, 0, selectableFeaturesJList, featureToSelectableFeatureMap);
 			next.addActionListener(listener);
 			imagePanel.removeAll();
 			imagePanel.add(featuresJlistJLabel);
@@ -216,7 +216,7 @@ public class GUI extends JFrame
 						IDS[counter] = featureID;
 						counter++;
 					}
-					birdNamer.updateData(featr, IDS);
+					updater = birdNamer.updateData(featr, IDS);
 			    }
 				catch (SQLException e1) {
 						// TODO Auto-generated catch block
@@ -330,12 +330,17 @@ public class GUI extends JFrame
 	}
 	private void updateList(ArrayList<BirdName> listOfBirds)
 	{
+		if(listOfBirds.size() == 0)
+		{
+			System.out.println("Problems!");
+		}
 		icons = updateJList(listOfBirds);
 		int k = 0;
 		Integer[] birdID = new Integer[listOfBirds.size()];
 		for(BirdName IDa : updater)
         {
         	birdID[k] = (Integer)IDa.getBirdId();
+        	System.out.println("updated Birds: " + IDa.getBirdId() +  ", " + IDa.getName());
         	k++;
         }
 		listJList = new JList<Object>(birdID);
