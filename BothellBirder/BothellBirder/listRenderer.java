@@ -20,10 +20,10 @@ public class listRenderer extends DefaultListCellRenderer
 {
 
 	private ImageIcon image;
-	private Map<Object, ImageIcon> icons = null;
+	private Map<String, ImageIcon> icons = null;
 	private Map<Integer, String> valueToBirdName;
 
-	public listRenderer(Map<Object, ImageIcon> icons, Map<Integer, String> valueToBirdNameMap)
+	public listRenderer(Map<String, ImageIcon> icons, Map<Integer, String> valueToBirdNameMap)
 	{
 		setOpaque(true);
         setHorizontalAlignment(CENTER);
@@ -44,8 +44,8 @@ public class listRenderer extends DefaultListCellRenderer
         }
 
         //Set the icon and text.  If icon was null, say so.
-        image = icons.get(index);
-        String name = valueToBirdName.get(index);
+        image = icons.get(valueToBirdName.get(value));
+        String name = valueToBirdName.get(value);
         setIcon(image);
         if (image != null) {
             setText(name);

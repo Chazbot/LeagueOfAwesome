@@ -59,7 +59,7 @@ public class GUI extends JFrame
     private JPanel buttonPanel;
     private JButton displayBird;
     private Map<Integer,String> mySet;
-    private  Map<Object, ImageIcon> icons = new TreeMap<Object, ImageIcon>();
+    private  Map<String, ImageIcon> icons = new TreeMap<String, ImageIcon>();
 	/**
 	 * @throws HeadlessException
 	 */
@@ -350,10 +350,16 @@ public class GUI extends JFrame
 	private void createList()
 	{
         icons = getInitJListData();
-        ArrayList<Integer> birdID = new ArrayList<Integer>();
+        Integer[] birdID = new Integer[birdNames.size()];
+        int i = 0;
+        mySet = new TreeMap<Integer, String>();
         for(BirdName ID : birdNames)
-        	birdID.add((Integer)ID.getBirdId());
-		listJList = new JList<Object>(birdID.toArray());
+        {
+        	birdID[i] = (Integer)ID.getBirdId();
+        	mySet.put(ID.getBirdId(), ID.getName());
+        	i++;
+        }
+		listJList = new JList<Integer>(birdID);
 		listJList.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
         jScrollPane = new javax.swing.JScrollPane();
         jScrollPane.setViewportView(listJList);
@@ -361,10 +367,11 @@ public class GUI extends JFrame
         listJList.setCellRenderer(new listRenderer(icons, mySet));
 	}
 	
-	private Map<Object, ImageIcon> getInitJListData()
+	private Map<String, ImageIcon> getInitJListData()
 	{
-        Map<Object, ImageIcon> icons = new HashMap<Object, ImageIcon>();
+        Map<String, ImageIcon> icons = new TreeMap<String, ImageIcon>();
         ImageIcon test = new ImageIcon("0a0.jpg");
+        mySet = new TreeMap<Integer, String>();
         for(BirdName name : birdNames)
         {
         	try {
@@ -373,17 +380,17 @@ public class GUI extends JFrame
 				e.printStackTrace();
 			}
         	icons.put(name.getName(), test);
-        	mySet = new HashMap<Integer, String>();
         	mySet.put(name.getBirdId(), name.getName());
         }
         if(birdNames.size() == 0)
-        	icons.put(0, test);
+        	icons.put("empty", test);
         return icons;
 	}
 	
-	private Map<Object, ImageIcon> updateJList(ArrayList<BirdName> listOfBirdNameObjects)
+	private Map<String, ImageIcon> updateJList(ArrayList<BirdName> listOfBirdNameObjects)
 	{
-		 Map<Object, ImageIcon> icons = new HashMap<Object, ImageIcon>();
+		 Map<String, ImageIcon> icons = new TreeMap<String, ImageIcon>();
+		 mySet = new TreeMap<Integer, String>();
 	        ImageIcon test = new ImageIcon("0a0.jpg");
 	        for(BirdName name : listOfBirdNameObjects)
 	        {
@@ -393,11 +400,10 @@ public class GUI extends JFrame
 					e.printStackTrace();
 				}
 	        	icons.put(name.getName(), test);
-	        	mySet = new HashMap<Integer, String>();
 	        	mySet.put(name.getBirdId(), name.getName());
 	        }
 	        if(birdNames.size() == 0)
-	        	icons.put(0, test);
+	        	icons.put("empty", test);
 	        return icons;
 	}
 	/**
