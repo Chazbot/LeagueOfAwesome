@@ -372,6 +372,7 @@ public class GUI extends JFrame
         Map<String, ImageIcon> icons = new TreeMap<String, ImageIcon>();
         ImageIcon test = new ImageIcon("0a0.jpg");
         mySet = new TreeMap<Integer, String>();
+        int index = 0;
         for(BirdName name : birdNames)
         {
         	try {
@@ -379,8 +380,9 @@ public class GUI extends JFrame
 			} catch (SQLException e) {
 				e.printStackTrace();
 			}
-        	icons.put(name.getName(), test);
+        	icons.put(name.getName(), images.get(index));
         	mySet.put(name.getBirdId(), name.getName());
+        	index++;
         }
         if(birdNames.size() == 0)
         	icons.put("empty", test);
@@ -390,8 +392,10 @@ public class GUI extends JFrame
 	private Map<String, ImageIcon> updateJList(ArrayList<BirdName> listOfBirdNameObjects)
 	{
 		 Map<String, ImageIcon> icons = new TreeMap<String, ImageIcon>();
+		 images = null;
 		 mySet = new TreeMap<Integer, String>();
 	        ImageIcon test = new ImageIcon("0a0.jpg");
+	        int index = 0;
 	        for(BirdName name : listOfBirdNameObjects)
 	        {
 	        	try {
@@ -399,8 +403,9 @@ public class GUI extends JFrame
 				} catch (SQLException e) {
 					e.printStackTrace();
 				}
-	        	icons.put(name.getName(), test);
+	        	icons.put(name.getName(), images.get(index));
 	        	mySet.put(name.getBirdId(), name.getName());
+	        	index++;
 	        }
 	        if(birdNames.size() == 0)
 	        	icons.put("empty", test);
