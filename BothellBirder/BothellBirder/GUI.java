@@ -42,7 +42,7 @@ public class GUI extends JFrame
 	private static final long serialVersionUID = 1L;
 	private JButton nameSearch;
 	private JTextField searchBox;
-	private JList<?> listJList;
+	private JList listJList;
 	private JScrollPane jScrollPane;
 	private JPanel listPanel;
 	private ArrayList<ImageIcon> images;
@@ -84,8 +84,8 @@ public class GUI extends JFrame
 	
 	class Searcher implements ActionListener
 	{
-		private JList<String> features = new JList<String>();
-		private DefaultListModel<String> model = new DefaultListModel<String>();
+		private JList features = new JList();
+		private DefaultListModel model = new DefaultListModel();
 		private Map<String, ArrayList<String>> my = new HashMap<String, ArrayList<String>>();
 		public void actionPerformed(ActionEvent e)
 		{
@@ -127,7 +127,7 @@ public class GUI extends JFrame
 	        	birdID[k] = (Integer)ID.getBirdId();
 	        	k++;
 	        }
-	        listJList = new JList<Object>(birdID);
+	        listJList = new JList(birdID);
 			listJList.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
 	        jScrollPane = new javax.swing.JScrollPane();
 	        jScrollPane.setViewportView(listJList);
@@ -182,7 +182,7 @@ public class GUI extends JFrame
 		        	birdID[k] = (Integer)ID.getBirdId();
 		        	k++;
 		        }
-		        listJList = new JList<Object>(birdID);
+		        listJList = new JList(birdID);
 				listJList.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
 		        jScrollPane = new javax.swing.JScrollPane();
 		        jScrollPane.setViewportView(listJList);
@@ -272,7 +272,7 @@ public class GUI extends JFrame
         for(BirdName ID : birdNames)
         	birdID.add((Integer)ID.getBirdId());
         birdID.add(0);
-		listJList = new JList<Object>(birdID.toArray());
+		listJList = new JList(birdID.toArray());
 		listJList.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
         jScrollPane = new javax.swing.JScrollPane();
         jScrollPane.setViewportView(listJList);
