@@ -20,18 +20,19 @@ public class listRenderer extends DefaultListCellRenderer
 {
 
 	private ImageIcon image;
-	private String name;
 	private Map<Object, ImageIcon> icons = null;
+	private Map<Integer, String> valueToBirdName;
 
-	public listRenderer(Map<Object, ImageIcon> icons)
+	public listRenderer(Map<Object, ImageIcon> icons, Map<Integer, String> valueToBirdNameMap)
 	{
 		setOpaque(true);
         setHorizontalAlignment(CENTER);
         setVerticalAlignment(CENTER);
         this.icons = icons;
+        valueToBirdName = valueToBirdNameMap;
 	}
 	public Component getListCellRendererComponent(
-		    JList list, Object value, int index,
+		    JList<?> list, Object value, int index,
 		    boolean isSelected, boolean cellHasFocus) 
 	{
         if (isSelected) {
@@ -43,8 +44,8 @@ public class listRenderer extends DefaultListCellRenderer
         }
 
         //Set the icon and text.  If icon was null, say so.
-        image = icons.get(value);
-        String name = value.toString();
+        image = icons.get(index);
+        String name = valueToBirdName.get(index);
         setIcon(image);
         if (image != null) {
             setText(name);

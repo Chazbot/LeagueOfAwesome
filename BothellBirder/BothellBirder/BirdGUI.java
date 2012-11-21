@@ -177,12 +177,12 @@ public class BirdGUI extends JFrame
 		getStuff = new BirdNameRetriever();
 		GenderRetriever sex = new GenderRetriever();
 		String scientificName = "";
-		//try {
-			//scientificName = getStuff.getScientificName(birdId);
-		//} //catch (SQLException e) {
+		try {
+			scientificName = getStuff.getScientificName(birdId);
+		} catch (SQLException e) {
 			// TODO Auto-generated catch block
-			//e.printStackTrace();
-		//}
+			e.printStackTrace();
+		}
 		LinkedHashMap<String, String> genders = new LinkedHashMap<String, String>();
 		try {
 			genders = sex.getGender(birdId);

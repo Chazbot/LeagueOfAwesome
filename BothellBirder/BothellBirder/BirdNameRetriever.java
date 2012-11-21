@@ -190,8 +190,9 @@ public class BirdNameRetriever
         ResultSet rs = null;
         rs = stat.executeQuery(query);
         rs.next();
+        String sciName = rs.getString("scientificName");
         conn.close();
-        return rs.getString("scientificName");
+        return sciName;
 	}
 	
 	public ArrayList<String> getCommonNames(int id) throws SQLException
