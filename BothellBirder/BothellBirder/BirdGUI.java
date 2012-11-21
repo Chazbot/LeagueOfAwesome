@@ -1,8 +1,17 @@
 package BothellBirder;
 
 import java.awt.BorderLayout;
-import java.awt.EventQueue;
+import java.awt.Dimension;
 import java.awt.GridLayout;
+import java.awt.Insets;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+import java.io.File;
+import java.io.IOException;
+import java.sql.SQLException;
+import java.util.ArrayList;
+import java.util.Collection;
+import java.util.LinkedHashMap;
 
 import javax.sound.sampled.AudioFormat;
 import javax.sound.sampled.AudioInputStream;
@@ -10,39 +19,20 @@ import javax.sound.sampled.AudioSystem;
 import javax.sound.sampled.DataLine;
 import javax.sound.sampled.LineUnavailableException;
 import javax.sound.sampled.SourceDataLine;
-import javax.swing.JFrame;
-import javax.swing.JPanel;
-import javax.swing.border.EmptyBorder;
-import javax.swing.JButton;
-import javax.swing.JTextField;
-import java.awt.Component;
-import javax.swing.SwingConstants;
-import java.awt.CardLayout;
-import javax.swing.JLayeredPane;
-import javax.swing.GroupLayout;
-import javax.swing.GroupLayout.Alignment;
-import javax.swing.JOptionPane;
-import javax.swing.LayoutStyle.ComponentPlacement;
-import javax.swing.JTextArea;
-import java.awt.Frame;
 import javax.swing.ImageIcon;
-import java.awt.Dimension;
-import java.awt.Insets;
+import javax.swing.JButton;
+import javax.swing.JFrame;
 import javax.swing.JLabel;
-import java.awt.Color;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
-import java.awt.event.WindowAdapter;
-import java.awt.event.WindowEvent;
-import java.io.File;
-import java.io.IOException;
-import java.sql.SQLException;
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.LinkedHashMap;
+import javax.swing.JPanel;
+import javax.swing.JTextArea;
 
 public class BirdGUI extends JFrame 
 {
+
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 7801651004788925924L;
 	private JPanel panel;
 	private JPanel panel_1;
 	private JPanel control;
@@ -132,7 +122,7 @@ public class BirdGUI extends JFrame
 		{
 			// TODO Auto-generated method stub
 			MakeSound play = new MakeSound();
-			play.playSound("mySound.wav");		
+			play.playSound("0a0.wav");		
 		}
 		
 	}
@@ -187,12 +177,12 @@ public class BirdGUI extends JFrame
 		getStuff = new BirdNameRetriever();
 		GenderRetriever sex = new GenderRetriever();
 		String scientificName = "";
-		try {
-			scientificName = getStuff.getScientificName(birdId);
-		} catch (SQLException e) {
+		//try {
+			//scientificName = getStuff.getScientificName(birdId);
+		//} //catch (SQLException e) {
 			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
+			//e.printStackTrace();
+		//}
 		LinkedHashMap<String, String> genders = new LinkedHashMap<String, String>();
 		try {
 			genders = sex.getGender(birdId);
@@ -201,7 +191,9 @@ public class BirdGUI extends JFrame
 			e.printStackTrace();
 		}
 		@SuppressWarnings("unchecked")
-		ArrayList<String> names = (ArrayList<String>) genders.keySet();
+		Collection<String> named =  genders.keySet();
+		ArrayList<String> names = new ArrayList<String>();
+		names.addAll(named);
 		ArrayList<JLabel> namesLabel = new ArrayList<JLabel>();
 		ArrayList<String> labelTxt = new ArrayList<String>();
 		labelTxt.add("Bird Species: " + scientificName + "\nCommon Name(s):\n");
@@ -247,7 +239,6 @@ public class BirdGUI extends JFrame
 				try {
 					female = maker.bigImage(birdId, sex.getNameId(birdId, name));
 				} catch (SQLException e) {
-					// TODO Auto-generated catch block
 					e.printStackTrace();
 				}
 				btnBirdPic[k].setIcon(female);

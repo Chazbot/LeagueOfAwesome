@@ -4,13 +4,13 @@ import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.IOException;
+import java.io.InputStream;
 import java.sql.Blob;
 import java.sql.Connection;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
 
-import org.omg.CORBA.portable.InputStream;
 
 public class FileMaker 
 {
@@ -26,14 +26,14 @@ public class FileMaker
 		Connection conn = SimpleDataSource.getconnection();
 		Statement stat = null;
 		stat = conn.createStatement();
-		String FileName = ID + gender + num + "." +  type;
+		String FileName = ID + "" + gender + "" + num + "." +  type;
         String query = "SELECT * FROM" 
                 + " BirdsDatabase.dbo.MyBirdStore Where name = '" 
         		+ FileName + "'";  //get database table
         ResultSet rs = null;
         rs = stat.executeQuery(query);
         rs.next();
-        String outputBinaryFileName2 = rs.getString("name");
+        String outputBinaryFileName2 = FileName;
         outputBinaryFile2 = new File(outputBinaryFileName2);
         FileOutputStream  outputFileOutputStream = null;
         try {

@@ -26,25 +26,28 @@ public class SoundMaker
 				+ " BirdDatabase.dbo.Files where uniqueBirdID = '" + ID + "'";  
 		ResultSet rs = null;
 		rs = stat.executeQuery(query);
+		rs.next();
+		int[] id = new int[3];
+		id[0] = rs.getInt("hasMaleSound");
+		id[1] = rs.getInt("hasFemaleSound");
+		id[2] = rs.getInt("hasAmbiguousSound");
 		String query2 = "SELECT [gender] FROM BirdDatabase.dbo.gender where uniqueBirdName"
 				+ "= '" + nameId + "'";
 		ResultSet rs2 = null;
 		rs2 = stat.executeQuery(query2);
-		rs = stat.executeQuery(query);
-		rs.next();
 		rs2.next();
 		String gender = rs2.getString("gender");
 		if(gender.charAt(0) == 'm' || gender.charAt(0) == 'M')
 		{
-			if(rs.getInt("hasMaleSound") > 0)
+			if(id[0] > 0)
 				myFile = maker.make(ID, 'm', 1, "wav");
 		}
 		else if(gender.charAt(0) == 'f' || gender.charAt(0) == 'F')
 		{
-			if(rs.getInt("hasFemaleSound") > 0)
+			if(id[1] > 0)
 				myFile = maker.make(ID, 'f', 1, "wav");
 		}
-		else if(rs.getInt("hasAmbiguousImage") > 0)
+		else if(id[2] > 0)
 			myFile = maker.make(ID, 'a', 1, "wav");
 		else
 			myFile = maker.make(0, 'a' , 0, "wav");

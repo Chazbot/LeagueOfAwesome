@@ -7,6 +7,7 @@ import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.LinkedHashMap;
+import java.util.Map;
 
 public class GenderRetriever 
 {
@@ -32,15 +33,21 @@ public class GenderRetriever
         }        
         rs = stat.executeQuery(query);
         rs.next();
+        Map<Integer, String> genders = new LinkedHashMap<Integer,String>();
+        int[] name = new int[i];
+        for(int j= 0; j < i; j++)//populate arraylist
+        {    
+        	genders.put(rs.getInt("uniqueBirdName"),rs.getString("gender"));
+        	name[j] = rs.getInt("uniqueBirdName");
+        }
         for(int j= 0; j < i; j++)//populate arraylist
         {    
         	String query2 = "SELECT [name] FROM" 
-                    + " BirdDatabase.dbo.name where nameId = '" + 
-        			rs.getInt("uniqueBirdName") + "'";
+                    + " BirdDatabase.dbo.name where nameId = " + 
+        			name[j];
         	ResultSet a = stat.executeQuery(query2);
         	a.next();
-        	gender.put(a.getString("name"), rs.getString("gender"));
-            rs.next();
+        	gender.put(a.getString("name"), genders.get(name[j]));
         }
         conn.close();
      return gender;
@@ -51,12 +58,10 @@ public class GenderRetriever
 		Connection conn = SimpleDataSource.getconnection();
         Statement stat = null;
         stat = conn.createStatement();
-        String query = "SELECT [uniqueBirdName] FROM" 
-                + " BirdDatabase.dbo.Gender where uniqueBirdId = '" + id + "', name = '"
-                + bName + "'";  //get database table
+        String query = "Select [nameID] from BirdDatabase.dbo.name where name = '" + bName + "'";
         ResultSet rs = stat.executeQuery(query);
         rs.next();
-        return rs.getInt("uniqueBirdName");
+        return rs.getInt("nameID");
 	}
 }
 

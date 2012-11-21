@@ -7,11 +7,8 @@ import java.awt.Component;
 import java.util.Map;
 
 import javax.swing.DefaultListCellRenderer;
-import javax.swing.Icon;
 import javax.swing.ImageIcon;
-import javax.swing.JLabel;
 import javax.swing.JList;
-import javax.swing.ListCellRenderer;
 
 
 
@@ -47,7 +44,7 @@ public class listRenderer extends DefaultListCellRenderer
 
         //Set the icon and text.  If icon was null, say so.
         image = icons.get(value);
-        String name = "empty";
+        String name = value.toString();
         setIcon(image);
         if (image != null) {
             setText(name);

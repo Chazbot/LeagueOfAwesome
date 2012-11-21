@@ -9,8 +9,8 @@ public class BirdName
 	public BirdName(String aName, int aBirdId, int aNameId) 
 	{
 		name = aName;
-		nameId = aBirdId;
 	    birdId = aNameId;
+	    nameId = aBirdId;
 	}
 	
 	public int getNameId()
