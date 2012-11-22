@@ -205,7 +205,16 @@ public class GUI extends JFrame
 					int i = 0;
 					DefaultListModel<String> model = new DefaultListModel<String>();
 					ArrayList<String> list = featureToSelectableFeatureMap.get(featureNames[theIndexOfTheCurrentFeature + 1]);
-					int[] IDS = new int[feature.size()/2];
+					int[] IDS = {};
+					if(feature.size() == 2)
+						IDS = new int[2];
+					else
+					{
+						if(feature.size() % 2 == 0)
+							 IDS = new int[feature.size()/2];
+						else
+							IDS = new int[feature.size()/2 + 1];
+					}
 					int counter = 0;
 					for(int g = 1; g < IDS.length; g += 2)
 					{
@@ -231,7 +240,7 @@ public class GUI extends JFrame
 					selectableFeaturesJList = new JList<String>(model);
 					jScrollPanes.setViewportView(selectableFeaturesJList);
 					imagePanel.add(jScrollPanes);
-					ActionListener nextAction = makeThis(featureNames, theIndexOfTheCurrentFeature + 1, selectableFeaturesJList,
+					ActionListener nextAction = makeThis(featureNames, theIndexOfTheCurrentFeature + 1, oldSelectableFeaturesJList,
 							featureToSelectableFeatureMap, IDS);
 					next.addActionListener(nextAction);
 				}
