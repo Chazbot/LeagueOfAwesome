@@ -8,7 +8,9 @@ import java.awt.Graphics2D;
 import java.awt.Image;
 import java.awt.RenderingHints;
 import java.awt.image.BufferedImage;
+import java.util.ArrayList;
 import java.util.Map;
+import java.util.Set;
 
 import javax.imageio.ImageIO;
 import javax.swing.DefaultListCellRenderer;
@@ -35,6 +37,7 @@ public class listRenderer extends DefaultListCellRenderer
         setVerticalAlignment(CENTER);
         this.icons = icons;
         valueToBirdName = valueToBirdNameMap;
+
 	}
 	public Component getListCellRendererComponent(
 		    JList<?> list, Object value, int index,
@@ -47,14 +50,13 @@ public class listRenderer extends DefaultListCellRenderer
             setBackground(list.getBackground());
             setForeground(list.getForeground());
         }
-
+        String name = "";
         //Set the icon and text.  If icon was null, say so.
         image = icons.get(valueToBirdName.get(value));
-        String name = valueToBirdName.get(value);
+        System.out.println(value);
         setIcon(image);
         if (image != null) {
-            setText(name);
-            setFont(list.getFont());
+        		setText(valueToBirdName.get(value));
         } else {
             setText(name + " (no image available)");
         }

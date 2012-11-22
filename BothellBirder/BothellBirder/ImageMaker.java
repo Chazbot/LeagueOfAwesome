@@ -18,7 +18,7 @@ public class ImageMaker
 	{
 		maker = new FileMaker();
 	}
-	public ImageIcon readData(int ID, int nameId) throws SQLException
+	public ImageIcon readData( int ID, int nameId) throws SQLException
 	{
 		Connection conn = SimpleDataSource.getconnection();
 		Statement stat = null;

@@ -79,7 +79,7 @@ public class BirdNameRetriever
         return ID;
 	}
 	
-	public ArrayList<BirdName> updateData(int feature, int[] features) throws SQLException
+	public ArrayList<BirdName> updateData(int feature, int iDS) throws SQLException
 	{
         Connection conn = SimpleDataSource.getconnection();
         Statement stat = null;
@@ -118,24 +118,13 @@ public class BirdNameRetriever
         	featured = "BirdLocations";
         	break;
         }
-        String query = "SELECT * FROM BirdDatabase.dbo." + featured + " Where " + featured + " = " + features[0]; //get database table
+        String query = "SELECT * FROM BirdDatabase.dbo." + featured + " Where " + featured + " = " + iDS; //get database table
     	if(fakeOut)
-    		query = "SELECT * FROM BirdDatabase.dbo." + featured + " WHERE " + featuredA +  " = " + features[0];  //get database table
+    		query = "SELECT * FROM BirdDatabase.dbo." + featured + " WHERE " + featuredA +  " = " + iDS;  //get database table
     	if(fakeOut2)
-    		query = "SELECT * FROM BirdDatabase.dbo." + featured + " WHERE " + featuredB +  " = " + features[0];  //get database table
+    		query = "SELECT * FROM BirdDatabase.dbo." + featured + " WHERE " + featuredB +  " = " + iDS;  //get database table
     	if(featured.equalsIgnoreCase("BirdLocations"))
-    		query = "SELECT * FROM BirdDatabase.dbo." + featured + " WHERE BirdLocation = " + features[0];  //get database table
-        for(int i = 1; i < features.length; i++)
-        {
-        	if(fakeOut)
-        		query += " or " + featuredA + " = " + features[i];
-        	else if(fakeOut2)
-        		query += " or " + featuredB +  " = " + features[i];
-        	else if(featured.equalsIgnoreCase("BirdLocations"))
-        		query += " or " + "BirdLocation" + " = " + features[i];
-        	else
-        		query += " or " + featured + " = " + features[i];
-        }
+    		query = "SELECT * FROM BirdDatabase.dbo." + featured + " WHERE BirdLocation = " + iDS;  //get database table
         ResultSet rs = null;
         rs = stat.executeQuery(query);
         int i = 0; 
@@ -143,7 +132,6 @@ public class BirdNameRetriever
         {
             i++;
         }
-        System.out.println("Stupid relsult = " + i + " " + query);
         rs = stat.executeQuery(query);
         rs.next();
         ArrayList<Integer> birdIDS = new ArrayList<Integer>();
