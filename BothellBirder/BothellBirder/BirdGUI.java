@@ -24,6 +24,7 @@ import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
+import javax.swing.JScrollPane;
 import javax.swing.JTextArea;
 
 public class BirdGUI extends JFrame 
@@ -46,6 +47,8 @@ public class BirdGUI extends JFrame
 	private ImageIcon female;
 	private ImageIcon am;
 	private JButton back;
+	private JScrollPane jscroll = new JScrollPane();
+	private String named = "Bird Names: ";
 
 	/**
 	 * Launch the application.
@@ -140,9 +143,13 @@ public class BirdGUI extends JFrame
 	/**
 	 * Create the frame.
 	 */
-	public BirdGUI(int ID) 
+	public BirdGUI(int ID, ArrayList<String> common) 
 	{
 		birdId = ID;
+		for(String numName : common)
+		{
+			named += numName + ", ";
+		}
 		initComponents();
 		setMinimumSize(new Dimension(600, 600));
 		setTitle("iBird By Team 5");
@@ -158,7 +165,6 @@ public class BirdGUI extends JFrame
 		txtrTest = new JTextArea();
 		getBirdData();
 		getText();
-		panel_1.add(txtrTest);
 		back = new JButton("Close Bird display and return to Bothell Bird");
 		ActionListener close = new closeAction(); 
 		back.addActionListener(close);
@@ -196,7 +202,7 @@ public class BirdGUI extends JFrame
 		names.addAll(named);
 		ArrayList<JLabel> namesLabel = new ArrayList<JLabel>();
 		ArrayList<String> labelTxt = new ArrayList<String>();
-		labelTxt.add("Bird Species: " + scientificName + "\nCommon Name(s):\n");
+		labelTxt.add(this.named + " Bird Species: " + scientificName);
 		int i = names.size();
 		btnBirdPic = new JButton[i];
 		int k = 0;
@@ -284,7 +290,12 @@ public class BirdGUI extends JFrame
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
+		
 		txtrTest.setText(description);
+		txtrTest.setColumns(10);
+		txtrTest.setRows(10);
 		txtrTest.setEditable(false);
+		jscroll = new JScrollPane(txtrTest);
+		panel_1.add(jscroll);
 	}
 }

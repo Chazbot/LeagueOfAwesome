@@ -93,6 +93,7 @@ public class GUI extends JFrame
 		public void actionPerformed(ActionEvent e)
 		{
 			int birdId = 0;
+			ArrayList<String> names = new ArrayList<String>();
 			for(BirdName birdName : birdNames)
 			{
 				if(birdName.getNameId() == (Integer)listJList.getSelectedValue())
@@ -100,9 +101,14 @@ public class GUI extends JFrame
 					birdId = birdName.getBirdId();
 				}
 			}
+			for(BirdName aName : birdNames)
+			{
+				if(aName.getBirdId() == birdId)
+					names.add(aName.getName());
+			}
 			if(birdId != 0)
 			{
-				JFrame display = new BirdGUI(birdId);
+				JFrame display = new BirdGUI(birdId, names);
 				display.setVisible(true);
 				GraphicsEnvironment env = GraphicsEnvironment.getLocalGraphicsEnvironment();
 				display.setExtendedState(display.getExtendedState() | display.MAXIMIZED_BOTH);
