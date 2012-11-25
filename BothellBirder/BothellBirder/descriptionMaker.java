@@ -35,7 +35,7 @@ public class descriptionMaker
 
 		for(String bird: descriptions)
 		{
-			description += bird;
+			description += bird + "\r\n";
 			System.out.println(bird);
 		}
 		return description;
@@ -62,8 +62,10 @@ public class descriptionMaker
 			rs.next();
 			for(int k= 0; k < i; k++)//populate arraylist
 			{    
-				if(features.get(rs.getInt("UniqueFamilyID")) != null)
+				if(features.get(rs.getInt("UniqueFamilyID")) != null && k != i - 1)
 					temp += features.get(rs.getInt("UniqueFamilyID")) + ", ";
+				else
+					temp += features.get(rs.getInt("UniqueFamilyID"));
 				rs.next();
 			}
 			descriptions.add(temp);
@@ -78,8 +80,10 @@ public class descriptionMaker
 			rs.next();
 			for(int k= 0; k < i; k++)//populate arraylist
 			{
-				if(features.get(rs.getInt("BirdSecondaryColor")) != null)
+				if(features.get(rs.getInt("BirdSecondaryColor")) != null && k != i - 1)
 					temp += features.get(rs.getInt("BirdSecondaryColor")) + ", ";
+				else
+					temp += features.get(rs.getInt("BirdSecondaryColor"));
 				rs.next();
 			}
 			descriptions.add(temp);
@@ -94,8 +98,10 @@ public class descriptionMaker
 			rs.next();
 			for(int k= 0; k < i; k++)//populate arraylist
 			{    
-				if(features.get(rs.getInt("birdPrimaryColor")) != null)
+				if(features.get(rs.getInt("birdPrimaryColor")) != null && k != i - 1)
 					temp += features.get(rs.getInt("birdPrimaryColor")) + ", ";
+				else
+					temp += features.get(rs.getInt("birdPrimaryColor"));
 				rs.next();
 			}
 			descriptions.add(temp);
@@ -110,8 +116,10 @@ public class descriptionMaker
 			rs.next();
 			for(int k= 0; k < i; k++)//populate arraylist
 			{    
-				if(features.get(rs.getInt("BirdFeederFrequency")) != null)
+				if(features.get(rs.getInt("BirdFeederFrequency")) != null && k != i - 1)
 					temp += features.get(rs.getInt("BirdFeederFrequency")) + ", ";
+				else
+					temp += features.get(rs.getInt("BirdFeederFrequency"));
 				rs.next();
 			}
 			descriptions.add(temp);
@@ -126,8 +134,10 @@ public class descriptionMaker
 			rs.next();
 			for(int k= 0; k < i; k++)//populate arraylist
 			{    
-				if(features.get(rs.getInt("BirdHabitat")) != null)
+				if(features.get(rs.getInt("BirdHabitat")) != null && k != i - 1)
 					temp += features.get(rs.getInt("BirdHabitat")) + ", ";
+				else
+					temp += features.get(rs.getInt("BirdHabitat"));
 				rs.next();
 			}
 			descriptions.add(temp);
@@ -142,8 +152,10 @@ public class descriptionMaker
 			rs.next();
 			for(int k= 0; k < i; k++)//populate arraylist
 			{    
-				if(features.get(rs.getInt("BirdConservationStatus")) != null)
+				if(features.get(rs.getInt("BirdConservationStatus")) != null && k != i - 1)
 					temp += features.get(rs.getInt("BirdConservationStatus")) + ", ";
+				else
+					temp += features.get(rs.getInt("BirdConservationStatus"));
 				rs.next();
 			}
 			descriptions.add(temp);
@@ -158,8 +170,10 @@ public class descriptionMaker
 			rs.next();
 			for(int k= 0; k < i; k++)//populate arraylist
 			{    
-				if(features.get(rs.getInt("BirdSize")) != null)
+				if(features.get(rs.getInt("BirdSize")) != null && k != i - 1)
 					temp += features.get(rs.getInt("BirdSize")) + ", ";
+				else
+					temp += features.get(rs.getInt("BirdSize"));
 				rs.next();
 			}
 			descriptions.add(temp);
@@ -174,8 +188,10 @@ public class descriptionMaker
 			rs.next();
 			for(int k= 0; k < i; k++)//populate arraylist
 			{    
-				if(features.get(rs.getInt("BirdLocation")) != null)
+				if(features.get(rs.getInt("BirdLocation")) != null && k != i - 1)
 					temp += features.get(rs.getInt("BirdLocation")) + ", ";
+				else
+					temp += features.get(rs.getInt("BirdLocation"));
 				rs.next();
 			}
 			descriptions.add(temp);

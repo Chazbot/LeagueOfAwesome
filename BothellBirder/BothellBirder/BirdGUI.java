@@ -292,7 +292,7 @@ public class BirdGUI extends JFrame
 		}
 		
 		txtrTest.setText(description);
-		txtrTest.setColumns(10);
+		txtrTest.setColumns(100);
 		txtrTest.setRows(10);
 		txtrTest.setEditable(false);
 		jscroll = new JScrollPane(txtrTest);

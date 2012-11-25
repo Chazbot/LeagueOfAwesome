@@ -135,9 +135,11 @@ public class BirdNameRetriever
         rs = stat.executeQuery(query);
         rs.next();
         ArrayList<Integer> birdIDS = new ArrayList<Integer>();
+        System.out.println(query);
         for(int z = 0; z < i; z++)
         {
         	birdIDS.add(rs.getInt("uniqueBirdId"));
+        	rs.next();
         }
         bird = new ArrayList<BirdName>();
         if(birdIDS.size() > 0)
@@ -155,6 +157,7 @@ public class BirdNameRetriever
         	i++;
         }
         rs = stat.executeQuery(querye);
+        System.out.println(querye);
         rs.next();
         for(int j= 0; j < i; j++)//populate arraylist
         {    
