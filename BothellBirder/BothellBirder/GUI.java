@@ -159,15 +159,12 @@ public class GUI extends JFrame
 				{
 					int featr = birdNamer.getFeatureID(featureNames[theIndexOfTheCurrentFeature]);
 					int aGoodIndex = selectableFeaturesJList.getSelectedIndex() + 1;
-					System.out.println("Feature = " + featr + " SelectedIndex = " + aGoodIndex 
-						+ " let's check ");
 					
 					updater = birdNamer.updateData(featr, aGoodIndex);
 					
 					if(!hasAdded)
 					{
 						uniqueSetOfBirdNameOb = new LinkedHashSet<BirdName>(updater);
-						System.out.println("HERE AM I? " + updater.size());
 						hasAdded = true;
 						ArrayList<BirdName> updatedList = new ArrayList<BirdName>();
 						updatedList.addAll(uniqueSetOfBirdNameOb);
@@ -186,7 +183,6 @@ public class GUI extends JFrame
 								if(updater.get(z).getBirdId() == a.getBirdId())
 								{
 									stillExists = true;
-									System.out.println("save me");
 								}
 							}
 							if(!stillExists)
@@ -373,6 +369,7 @@ public class GUI extends JFrame
 		}
 		listJList = null;
 		listJList = new JList<Integer>(birdID);
+		listJList.setSelectedIndex(0);
 		listJList.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
 		jScrollPane = null;
 		jScrollPane = new javax.swing.JScrollPane();
@@ -396,6 +393,7 @@ public class GUI extends JFrame
 		}
 		listJList = new JList<Integer>(birdID);
 		listJList.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
+		listJList.setSelectedIndex(0);
 		jScrollPane = new javax.swing.JScrollPane();
 		jScrollPane.setViewportView(listJList);
 		listPanel.add(jScrollPane, java.awt.BorderLayout.WEST);
@@ -406,6 +404,7 @@ public class GUI extends JFrame
 	private void getInitJListData()
 	{
 		icons = new TreeMap<String, ImageIcon>();
+		images = new ArrayList<ImageIcon>();
 		ImageIcon test = new ImageIcon("0a0.jpg");
 		mySet = new TreeMap<Integer, String>();
 		int index = 0;
