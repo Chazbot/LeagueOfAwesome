@@ -22,16 +22,20 @@ import java.util.Set;
 import java.util.TreeMap;
 
 import javax.swing.DefaultListModel;
+import javax.swing.Icon;
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
+import javax.swing.JDesktopPane;
 import javax.swing.JDialog;
 import javax.swing.JFrame;
+import javax.swing.JInternalFrame;
 import javax.swing.JLabel;
 import javax.swing.JList;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.JTextField;
+import javax.swing.JWindow;
 import javax.swing.ListCellRenderer;
 import javax.swing.ListSelectionModel;
 
@@ -39,7 +43,7 @@ import javax.swing.ListSelectionModel;
  * @author Bret Van Hof
  *
  */
-public class GUI extends JFrame 
+public class GUI extends JFrame
 {
 	private static final long serialVersionUID = 1L;
 	private JButton nameSearch;
@@ -71,19 +75,48 @@ public class GUI extends JFrame
 	private JList<String> selectableFeaturesJList = new JList<String>();
 	private DefaultListModel<String> model = new DefaultListModel<String>();
 	private Map<String, ArrayList<String>> featureToSelectableFeatureMap = new TreeMap<String, ArrayList<String>>();
+	private HashMap<String, Integer> birdie = new HashMap<String, Integer>();
 	/**
 	 * @throws HeadlessException
 	 */
 	public GUI() throws HeadlessException 
 	{
+		setVisible(true);
 		createData();
 		GraphicsEnvironment env = GraphicsEnvironment.getLocalGraphicsEnvironment();
 		this.setExtendedState(this.getExtendedState() | this.MAXIMIZED_BOTH);
-		setTitle("BothellBirder by Team 5");
+		setName("BothellBirder by Team 5");
 		setLayout(new BorderLayout());
-		this.setIconImage(Toolkit.getDefaultToolkit().getImage
+		setIconImage(Toolkit.getDefaultToolkit().getImage
 				("defaultBird.jpg")); //sets icon
+		setVisible(true);
+		setContentPane(new JDesktopPane());
 		initComponents();
+		revalidate();
+	}
+	class NameSearch implements ActionListener
+	{
+		public void actionPerformed(ActionEvent e)
+		{
+			String toFind = searchBox.getText();
+			if( birdie.get(toFind) != null )
+			{
+				ArrayList<String> names = new ArrayList<String>();
+				for(BirdName aName : birdNames)
+				{
+					if(aName.getBirdId() == birdie.get(toFind))
+						names.add(aName.getName());
+				}
+				JFrame display = new BirdGUI(birdie.get(toFind), names);
+				display.setVisible(true);
+				setName("BothellBirder by Team 5");
+				display.setBounds(30, 30, 800, 600);
+				display.toFront();
+			}
+			else
+				JOptionPane.showMessageDialog(null, "Bird Not Found!", 
+						"", JOptionPane.WARNING_MESSAGE);
+		}
 	}
 	class Reseter implements ActionListener
 	{
@@ -91,11 +124,13 @@ public class GUI extends JFrame
 		{
 			listPanel.removeAll();
 			createList();
+			hasAdded = false;
 			listPanel.revalidate();
 		}
 	}
 	class Birder implements ActionListener
 	{
+
 		public void actionPerformed(ActionEvent e)
 		{
 			int birdId = 0;
@@ -116,9 +151,11 @@ public class GUI extends JFrame
 			{
 				JFrame display = new BirdGUI(birdId, names);
 				display.setVisible(true);
-				GraphicsEnvironment env = GraphicsEnvironment.getLocalGraphicsEnvironment();
-				display.setExtendedState(display.getExtendedState() | display.MAXIMIZED_BOTH);
-				setTitle("BothellBirder by Team 5");
+				setName("BothellBirder by Team 5");
+				display.setBounds(30, 30, 800, 600);
+				//add(display);
+				//desk.setSelectedFrame(display);
+				display.toFront();
 			}
 		}
 	}
@@ -171,7 +208,6 @@ public class GUI extends JFrame
 					}
 					else
 					{
-						System.out.println("2nd shot: " + updater.size());
 						BirdName[] b = new BirdName[uniqueSetOfBirdNameOb.size()];
 						int theIndex = 0;
 						for(BirdName a : uniqueSetOfBirdNameOb)
@@ -237,6 +273,10 @@ public class GUI extends JFrame
 			JOptionPane.showMessageDialog(null, "Can't connect to database!", 
 					"", JOptionPane.WARNING_MESSAGE);
 		}
+		for(BirdName aBirdie: birdNames)
+		{
+			birdie.put(aBirdie.getName(), aBirdie.getBirdId());
+		}
 	}
 
 	public ActionListener makeThis(String[] a, int b, int[] c)
@@ -290,13 +330,12 @@ public class GUI extends JFrame
 			model.add(i, fam);
 			i++;
 		}
-		JScrollPane jScrollPanes = new javax.swing.JScrollPane();
 		String[] as = new String[list.size()];
 		selectableFeaturesJList = new JList<String>(list.toArray(as));
 		selectableFeaturesJList.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
 		selectableFeaturesJList.setModel(model);
 		selectableFeaturesJList.setSelectedIndex(0);
-		jScrollPanes.setViewportView(selectableFeaturesJList);
+		JScrollPane jScrollPanes = new javax.swing.JScrollPane(selectableFeaturesJList);
 		next = new JButton("Next set of criteria");
 		imagePanel.removeAll();
 		JLabel aFeatureName = new JLabel(featureName[anIndex]);
@@ -306,7 +345,8 @@ public class GUI extends JFrame
 		listener = makeThis(featureName, anIndex, IDS);
 		next.addActionListener(listener);
 		imagePanel.add(next);
-		imagePanel.revalidate();	
+		imagePanel.revalidate();
+		revalidate();
     }
 	private void initComponents() 
 	{
@@ -334,15 +374,19 @@ public class GUI extends JFrame
 		imagePanel = new JPanel();
 		nameSearcher = new JPanel();
 		buttonPanel = new JPanel();
-		this.add( listPanel, BorderLayout.WEST);
-		this.add( nameSearcher, BorderLayout.NORTH);
-		this.add( imagePanel, BorderLayout.EAST);
-		this.add(buttonPanel, BorderLayout.SOUTH);
+		setLayout(new BorderLayout());
+		add( listPanel, BorderLayout.WEST);
+		add( nameSearcher, BorderLayout.NORTH);
+		add( imagePanel, BorderLayout.EAST);
+		add(buttonPanel, BorderLayout.SOUTH);
+		setName("BothellBirder by Team 5");
 	}
 
 	private void createButtons()
 	{
 		nameSearch = new JButton("Search by name");
+		ActionListener nameSearches = new NameSearch();
+		nameSearch.addActionListener(nameSearches);
 		searchByFeatures = new JButton("Search by features");
 		displayBird = new JButton("Display Bird Selected in List");
 		ActionListener dis = new Birder();
@@ -359,7 +403,6 @@ public class GUI extends JFrame
 	}
 	private void updateList(ArrayList<BirdName> listOfBirds)
 	{
-		updateJList(listOfBirds);
 		int k = 0;
 		Integer[] birdID = new Integer[listOfBirds.size()];
 		for(BirdName IDa : listOfBirds)
@@ -367,18 +410,17 @@ public class GUI extends JFrame
 			birdID[k] = (Integer)IDa.getNameId();
 			k++;
 		}
-		listJList = null;
 		listJList = new JList<Integer>(birdID);
-		listJList.setSelectedIndex(0);
 		listJList.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
-		jScrollPane = null;
-		jScrollPane = new javax.swing.JScrollPane();
-		jScrollPane.setViewportView(listJList);
+		listJList.setSelectedIndex(0);
+		listJList.setVisibleRowCount(3);
+		jScrollPane = new javax.swing.JScrollPane(listJList, JScrollPane.VERTICAL_SCROLLBAR_AS_NEEDED, 
+				JScrollPane.HORIZONTAL_SCROLLBAR_AS_NEEDED);
 		listPanel.removeAll();
-		lr = new listRenderer(icons, mySet);
 		listJList.setCellRenderer(lr);
 		listPanel.add(jScrollPane, java.awt.BorderLayout.WEST);
 		listPanel.revalidate();
+		getContentPane().revalidate();
 	}
 
 	private void createList()
@@ -394,8 +436,10 @@ public class GUI extends JFrame
 		listJList = new JList<Integer>(birdID);
 		listJList.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
 		listJList.setSelectedIndex(0);
-		jScrollPane = new javax.swing.JScrollPane();
-		jScrollPane.setViewportView(listJList);
+		listJList.setVisibleRowCount(3);
+		jScrollPane = new javax.swing.JScrollPane(listJList, 
+				JScrollPane.VERTICAL_SCROLLBAR_AS_NEEDED, 
+				JScrollPane.HORIZONTAL_SCROLLBAR_AS_NEEDED);
 		listPanel.add(jScrollPane, java.awt.BorderLayout.WEST);
 		lr = new listRenderer(icons, mySet);
 		listJList.setCellRenderer(lr);
@@ -423,28 +467,6 @@ public class GUI extends JFrame
 			icons.put("empty", test);
 	}
     
-	private void updateJList(ArrayList<BirdName> listOfBirdNameObjects)
-	{
-		icons = new TreeMap<String, ImageIcon>();
-		images = new ArrayList<ImageIcon>();
-		mySet = new TreeMap<Integer, String>();
-		ImageIcon test = new ImageIcon("0a0.jpg");
-		int index = 0;
-		for(BirdName name : listOfBirdNameObjects)
-		{
-			try {
-				images.add(imager.readData(name.getBirdId(), name.getNameId()));
-			} catch (SQLException e) {
-				e.printStackTrace();
-			}
-			icons.put(name.getName(), images.get(index));
-			mySet.put(name.getNameId(), name.getName());
-			index++;
-		}
-		if(birdNames.size() == 0)
-			icons.put("empty", test); 
-	}
-
 	/**
 	 * @param args//
 	 */

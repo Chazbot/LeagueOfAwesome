@@ -36,7 +36,6 @@ public class descriptionMaker
 		for(String bird: descriptions)
 		{
 			description += bird + "\r\n";
-			System.out.println(bird);
 		}
 		return description;
 	}
@@ -76,6 +75,7 @@ public class descriptionMaker
 			{
 				i++;
 			}
+			rs.close();
 			rs = stat.executeQuery(queries2[j]);
 			rs.next();
 			for(int k= 0; k < i; k++)//populate arraylist
@@ -94,6 +94,7 @@ public class descriptionMaker
 			{
 				i++;
 			}
+			rs.close();
 			rs = stat.executeQuery(queries2[j]);
 			rs.next();
 			for(int k= 0; k < i; k++)//populate arraylist
@@ -112,6 +113,7 @@ public class descriptionMaker
 			{
 				i++;
 			}
+			rs.close();
 			rs = stat.executeQuery(queries2[j]);
 			rs.next();
 			for(int k= 0; k < i; k++)//populate arraylist
@@ -130,6 +132,7 @@ public class descriptionMaker
 			{
 				i++;
 			}
+			rs.close();
 			rs = stat.executeQuery(queries2[j]);
 			rs.next();
 			for(int k= 0; k < i; k++)//populate arraylist
@@ -148,6 +151,7 @@ public class descriptionMaker
 			{
 				i++;
 			}
+			rs.close();
 			rs = stat.executeQuery(queries2[j]);
 			rs.next();
 			for(int k= 0; k < i; k++)//populate arraylist
@@ -166,6 +170,7 @@ public class descriptionMaker
 			{
 				i++;
 			}
+			rs.close();
 			rs = stat.executeQuery(queries2[j]);
 			rs.next();
 			for(int k= 0; k < i; k++)//populate arraylist
@@ -184,6 +189,7 @@ public class descriptionMaker
 			{
 				i++;
 			}
+			rs.close();
 			rs = stat.executeQuery(queries2[j]);
 			rs.next();
 			for(int k= 0; k < i; k++)//populate arraylist

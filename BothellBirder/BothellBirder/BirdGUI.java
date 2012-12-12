@@ -22,12 +22,14 @@ import javax.sound.sampled.SourceDataLine;
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JFrame;
+import javax.swing.JInternalFrame;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.JTextArea;
+import javax.swing.JWindow;
 
-public class BirdGUI extends JFrame 
+public class BirdGUI extends JFrame
 {
 
 	/**
@@ -151,10 +153,7 @@ public class BirdGUI extends JFrame
 			named += numName + ", ";
 		}
 		initComponents();
-		setMinimumSize(new Dimension(600, 600));
-		setTitle("iBird By Team 5");
-		setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
-		setBounds(100, 100, 600, 600);
+	
 	}
 	private void initComponents()
 	{
@@ -292,10 +291,10 @@ public class BirdGUI extends JFrame
 		}
 		
 		txtrTest.setText(description);
-		txtrTest.setColumns(100);
-		txtrTest.setRows(10);
 		txtrTest.setEditable(false);
-		jscroll = new JScrollPane(txtrTest);
+		jscroll = new JScrollPane(txtrTest, JScrollPane.VERTICAL_SCROLLBAR_ALWAYS,
+				JScrollPane.HORIZONTAL_SCROLLBAR_ALWAYS);
 		panel_1.add(jscroll);
+		revalidate();
 	}
 }

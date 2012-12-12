@@ -53,7 +53,6 @@ public class listRenderer extends DefaultListCellRenderer
         String name = "";
         //Set the icon and text.  If icon was null, say so.
         image = icons.get(valueToBirdName.get(value));
-        System.out.println(value);
         setIcon(image);
         if (image != null) {
         		setText(valueToBirdName.get(value));
